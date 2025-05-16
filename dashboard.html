@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PublicServe</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="mobile-menu-button">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-logo">PublicServe</h2>
+                <button id="close-sidebar" class="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link active">
+                    <i class="fas fa-calendar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="settings.html" class="sidebar-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name" id="user-name">User Name</p>
+                        <p class="user-role" id="user-role">User</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-actions">
+                    <button id="theme-toggle" class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-dropdown">
+                        <button class="user-dropdown-button" id="user-dropdown-button">
+                            <span id="header-user-name">User Name</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown-menu" id="user-dropdown-menu">
+                            <a href="settings.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <button id="logout-button" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Book Appointment Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Book a New Appointment</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="appointment-form" class="appointment-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ministry">Ministry</label>
+                                    <select id="ministry" name="ministry" required>
+                                        <option value="" disabled selected>Select a ministry</option>
+                                        <option value="interior">Ministry of Interior</option>
+                                        <option value="finance">Ministry of Finance</option>
+                                        <option value="health">Ministry of Health</option>
+                                        <option value="education">Ministry of Education</option>
+                                        <option value="transport">Ministry of Transport</option>
+                                    </select>
+                                    <div class="error-message" id="ministry-error"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="serviceType">Service Type</label>
+                                    <select id="serviceType" name="serviceType" required disabled>
+                                        <option value="" disabled selected>Select a ministry first</option>
+                                    </select>
+                                    <div class="error-message" id="serviceType-error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="text" id="date" name="date" placeholder="Select a date" required readonly>
+                                    <div class="error-message" id="date-error"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="time">Time</label>
+                                    <select id="time" name="time" required>
+                                        <option value="" disabled selected>Select a time slot</option>
+                                        <option value="09:00 AM">09:00 AM</option>
+                                        <option value="09:30 AM">09:30 AM</option>
+                                        <option value="10:00 AM">10:00 AM</option>
+                                        <option value="10:30 AM">10:30 AM</option>
+                                        <option value="11:00 AM">11:00 AM</option>
+                                        <option value="11:30 AM">11:30 AM</option>
+                                        <option value="12:00 PM">12:00 PM</option>
+                                        <option value="12:30 PM">12:30 PM</option>
+                                        <option value="01:00 PM">01:00 PM</option>
+                                        <option value="01:30 PM">01:30 PM</option>
+                                        <option value="02:00 PM">02:00 PM</option>
+                                        <option value="02:30 PM">02:30 PM</option>
+                                        <option value="03:00 PM">03:00 PM</option>
+                                        <option value="03:30 PM">03:30 PM</option>
+                                        <option value="04:00 PM">04:00 PM</option>
+                                    </select>
+                                    <div class="error-message" id="time-error"></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="book-button">
+                                <span id="book-button-text">Book Appointment</span>
+                                <span id="book-button-loading" class="button-loading hidden">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    Booking...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Your Appointments Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Your Appointments</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="appointments-loading" class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <div id="no-appointments" class="no-data hidden">
+                            You don't have any appointments yet. Book one above!
+                        </div>
+                        <div id="appointments-table-container" class="table-container hidden">
+                            <table id="appointments-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ministry</th>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointments-table-body">
+                                    <!-- Appointments will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="dashboard-footer">
+                <p>&copy; 2025 PublicServe. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <div id="toast" class="toast hidden">
+        <div class="toast-content">
+            <i class="fas fa-check-circle toast-icon success"></i>
+            <div class="toast-message">Appointment booked successfully!</div>
+        </div>
+        <div class="toast-progress"></div>
+    </div>
+
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Cancellation</h3>
+                <button id="close-modal" class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel this appointment?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-no" class="btn btn-outline">No, Keep It</button>
+                <button id="cancel-yes" class="btn btn-danger">Yes, Cancel It</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
